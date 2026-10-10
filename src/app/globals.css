@@ -130,6 +130,24 @@ button:disabled {
   background: #ffffff;
 }
 
+.inquiry-mail-desktop {
+  display: none;
+}
+
+.inquiry-mail-mobile {
+  display: inline-flex;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .inquiry-mail-desktop {
+    display: inline-flex;
+  }
+
+  .inquiry-mail-mobile {
+    display: none;
+  }
+}
+
 .btn-line {
   border: 1px solid rgba(232, 230, 225, 0.2);
   color: var(--paper);

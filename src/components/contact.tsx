@@ -20,8 +20,6 @@ const instagramPath =
 export function Contact() {
   const email = site.contact.email.trim()
   const emailReady = isEmail(email)
-  const gmailHref =
-    "https://mail.google.com/mail/?view=cm&fs=1&to=davidwork2184%40gmail.com&su=Project%20Inquiry%20-%20DAVID%20Portfolio"
   const github = httpUrl(site.contact.githubUrl)
   const instagram = httpUrl(site.contact.instagramUrl)
 
@@ -103,15 +101,23 @@ export function Contact() {
 
           <div className="border border-white/10 bg-graphite/80 p-6 sm:p-8 lg:col-span-6 lg:self-start lg:p-10">
             <p className="label">Inquiry</p>
-            {gmailHref ? (
-              <a
-                href={gmailHref}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="btn btn-solid mt-8 w-full sm:w-auto"
-              >
-                Write me an email
-              </a>
+            {emailReady ? (
+              <>
+                <a
+                  href="https://mail.google.com/mail/?view=cm&fs=1&to=davidwork2184%40gmail.com&su=Project%20Inquiry%20-%20DAVID%20Portfolio"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-solid inquiry-mail-desktop mt-8 w-full sm:w-auto"
+                >
+                  Write me an email
+                </a>
+                <a
+                  href="mailto:davidwork2184@gmail.com?subject=Project%20Inquiry%20-%20DAVID%20Portfolio"
+                  className="btn btn-solid inquiry-mail-mobile mt-8 w-full sm:w-auto"
+                >
+                  Write me an email
+                </a>
+              </>
             ) : (
               <p className="mt-4 max-w-md text-base leading-relaxed text-muted">
                 Add an email address in the site configuration to enable inquiries.
