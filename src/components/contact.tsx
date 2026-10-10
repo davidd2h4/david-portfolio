@@ -20,9 +20,8 @@ const instagramPath =
 export function Contact() {
   const email = site.contact.email.trim()
   const emailReady = isEmail(email)
-  const gmailHref = emailReady
-    ? `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(email)}&su=${encodeURIComponent(site.contact.mailSubject)}`
-    : null
+  const gmailHref =
+    "https://mail.google.com/mail/?view=cm&fs=1&to=davidwork2184%40gmail.com&su=Project%20Inquiry%20-%20DAVID%20Portfolio"
   const github = httpUrl(site.contact.githubUrl)
   const instagram = httpUrl(site.contact.instagramUrl)
 
