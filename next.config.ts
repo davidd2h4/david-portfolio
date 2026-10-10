@@ -1,7 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  /* config options here */
+  poweredByHeader: false,
+  images: {
+    qualities: [75, 82, 84],
+  },
   cacheComponents: true,
   partialPrefetching: true,
   turbopack: {
