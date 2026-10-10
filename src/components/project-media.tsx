@@ -1,19 +1,16 @@
 "use client"
 
 import Image from "next/image"
-import Link from "next/link"
 import { useRef } from "react"
 import { motion, useReducedMotion, useScroll, useTransform } from "motion/react"
 
 export function ProjectMedia({
-  href,
   src,
   alt,
   accent,
   priority = false,
   objectPosition = "center",
 }: {
-  href: string
   src: string
   alt: string
   accent: string
@@ -30,10 +27,7 @@ export function ProjectMedia({
 
   return (
     <div ref={ref}>
-      <Link
-        href={href}
-        className="group relative block overflow-hidden bg-graphite"
-      >
+      <div className="group relative block overflow-hidden bg-graphite">
         <div className="relative aspect-[4/5] sm:aspect-[16/11]">
           <motion.div
             className="absolute inset-x-0 -top-[12%] -bottom-[12%]"
@@ -56,11 +50,8 @@ export function ProjectMedia({
             className="absolute inset-x-0 bottom-0 h-px w-0 transition-all duration-700 ease-out group-hover:w-full"
             style={{ backgroundColor: accent }}
           />
-          <span className="absolute bottom-4 left-4 text-[0.68rem] tracking-[0.2em] text-paper uppercase md:bottom-5 md:left-5">
-            View case study
-          </span>
         </div>
-      </Link>
+      </div>
     </div>
   )
 }

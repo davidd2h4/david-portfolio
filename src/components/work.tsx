@@ -41,7 +41,6 @@ export function Work() {
               >
                 <div className={cn("order-1 lg:col-span-7", reverse ? "lg:order-1" : "lg:order-2")}>
                   <ProjectMedia
-                    href={`/work/${project.slug}`}
                     src={project.hero.src}
                     alt={project.hero.alt}
                     accent={project.accent}
@@ -79,9 +78,9 @@ export function Work() {
                     ))}
                   </ul>
                   <ProjectActions
-                    slug={project.slug}
                     liveUrl={project.liveUrl}
                     repositoryUrl={project.repositoryUrl}
+                    liveLabel="View website"
                   />
                 </Reveal>
               </article>

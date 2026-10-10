@@ -132,10 +132,8 @@ export function ProjectDetail({
             ))}
           </ul>
           <ProjectActions
-            slug={project.slug}
             liveUrl={project.liveUrl}
             repositoryUrl={project.repositoryUrl}
-            includeCaseStudy={false}
           />
         </Shell>
       </section>
