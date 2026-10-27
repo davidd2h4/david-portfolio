@@ -1,42 +1,38 @@
-import type { Metadata } from "next"
-import { notFound } from "next/navigation"
-import { site } from "@/config/site"
-import { ProjectDetail } from "@/components/project-detail"
-import { getNextProject, getProject } from "@/lib/projects"
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { CaseStudy } from "@/components/case/CaseStudy";
+import { getProject, projects, shot } from "@/data/projects";
+
+type Params = { params: Promise<{ slug: string }> };
+
+export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return site.projects.map((project) => ({ slug: project.slug }))
+  return projects.map((p) => ({ slug: p.slug }));
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}): Promise<Metadata> {
-  const { slug } = await params
-  const project = getProject(slug)
-  if (!project) notFound()
-
+export async function generateMetadata({ params }: Params): Promise<Metadata> {
+  const project = getProject((await params).slug);
+  if (!project) return {};
+  const image = shot(project, project.hero);
+  const title = `${project.name} — ${project.category.en}`;
   return {
-    title: project.title,
-    description: project.summary,
+    title,
+    description: project.summary.en,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
-      title: `${project.title} — ${site.name}`,
-      description: project.summary,
+      type: "article",
+      title,
+      description: project.summary.en,
       url: `/work/${project.slug}`,
+      images: [{ url: image.src, width: image.width, height: image.height, alt: project.name }],
     },
-  }
+    twitter: { card: "summary_large_image", title, description: project.summary.en, images: [image.src] },
+  };
 }
 
-export default async function ProjectPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>
-}) {
-  const { slug } = await params
-  const project = getProject(slug)
-  if (!project) notFound()
-
-  return <ProjectDetail project={project} next={getNextProject(project.slug)} />
+export default async function WorkPage({ params }: Params) {
+  const project = getProject((await params).slug);
+  if (!project) notFound();
+  return <CaseStudy slug={project.slug} />;
 }

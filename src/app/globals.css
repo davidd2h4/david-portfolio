@@ -1,337 +1,258 @@
 @import "tailwindcss";
 
-:root {
-  color-scheme: dark;
-  --ink: #08090b;
-  --paper: #e8e6e1;
-  --muted: #9c9890;
-  --silver: #c8c4bb;
-  --mist: #8ea6bb;
-  --graphite: #111318;
+/* ---------------------------------------------------------------
+   DAVID — design tokens
+   Ivory paper, charcoal ink, one cold accent: "signal blue".
+---------------------------------------------------------------- */
+@theme {
+  --color-ivory: #f3f0ea;
+  --color-paper: #ebe6dc;
+  --color-ink: #171717;
+  --color-graphite: #383838;
+  --color-smoke: #6b6862;
+  --color-mist: #a8a39a;
+  --color-line: #d8d2c6;
+  --color-night: #111111;
+  --color-signal: #2f3de6;
+  --color-signal-soft: #8f98ff;
+
+  --font-sans: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-serif: var(--font-garamond), ui-serif, Georgia, serif;
+  --font-mono: var(--font-mono-face), ui-monospace, SFMono-Regular, monospace;
+
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+
+  --breakpoint-xs: 26rem;
+  --breakpoint-3xl: 112rem;
 }
 
-@theme inline {
-  --color-ink: #08090b;
-  --color-paper: #e8e6e1;
-  --color-muted: #9c9890;
-  --color-silver: #c8c4bb;
-  --color-mist: #8ea6bb;
-  --color-graphite: #111318;
-  --font-sans: var(--font-instrument-sans), ui-sans-serif, system-ui, sans-serif;
-  --font-serif: var(--font-instrument-serif), "Iowan Old Style", Palatino, "Palatino Linotype", serif;
-  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+:root {
+  --gutter: clamp(1rem, 3.2vw, 3rem);
+  --header-h: 4.5rem;
+  color-scheme: light;
 }
 
 html {
-  scroll-behavior: smooth;
-  scroll-padding-top: 5.5rem;
-  scrollbar-color: #2c3036 var(--ink);
+  background: var(--color-ivory);
+  color: var(--color-ink);
+  -webkit-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-stopped {
+  overflow: hidden;
 }
 
 body {
-  background: var(--ink);
-  color: var(--paper);
+  background: var(--color-ivory);
   font-family: var(--font-sans);
-  text-rendering: optimizeLegibility;
-  font-feature-settings: "kern" 1, "liga" 1;
+  overflow-x: clip;
 }
 
 ::selection {
-  background: #8ea6bb;
-  color: #08090b;
+  background: var(--color-signal);
+  color: var(--color-ivory);
 }
 
-:where(a, button, input, textarea, select, summary) {
-  touch-action: manipulation;
-}
-
-:where(a, button, input, textarea, select):focus-visible {
-  outline: 1px solid var(--silver);
+:focus-visible {
+  outline: 2px solid var(--color-signal);
   outline-offset: 3px;
+  border-radius: 2px;
+}
+.on-dark :focus-visible,
+.on-dark:focus-visible {
+  outline-color: var(--color-signal-soft);
 }
 
-button:disabled {
-  cursor: not-allowed;
-}
-
-.label {
-  font-size: 0.68rem;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--muted);
-}
-
-.mask-line {
-  display: block;
-  overflow: hidden;
-  padding-bottom: 0.22em;
-  margin-bottom: -0.22em;
-}
-
-.skip-link {
-  position: absolute;
-  left: 1rem;
-  top: 0;
-  z-index: 90;
-  transform: translateY(-140%);
-  background: var(--paper);
-  color: var(--ink);
-  padding: 0.75rem 1rem;
-  font-size: 0.85rem;
-}
-
-.skip-link:focus {
-  transform: none;
-}
-
-.grain {
+/* Fine paper grain over everything, very low contrast. */
+.grain::after {
+  content: "";
   position: fixed;
-  inset: -20%;
-  z-index: 30;
+  inset: -50%;
+  z-index: 60;
   pointer-events: none;
-  opacity: 0.16;
-  background-image: url("/grain.svg");
-  background-size: 180px 180px;
-  mix-blend-mode: overlay;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-.ambient {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(42rem 32rem at var(--mx, 74%) var(--my, 16%), rgba(142, 166, 187, 0.18), transparent 58%),
-    radial-gradient(26rem 22rem at 14% 88%, rgba(196, 165, 116, 0.08), transparent 62%),
-    radial-gradient(20rem 16rem at 82% 76%, rgba(142, 166, 187, 0.06), transparent 70%);
+@utility container-x {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+  max-width: 120rem;
 }
 
-.btn {
-  display: inline-flex;
-  min-height: 3rem;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  padding: 0.75rem 1.4rem;
-  font-size: 0.75rem;
-  letter-spacing: 0.16em;
+@utility eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1.2;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  transition:
-    background-color 0.3s ease,
-    color 0.3s ease,
-    border-color 0.3s ease;
 }
 
-.btn-solid {
-  background: var(--paper);
-  color: var(--ink);
+@utility display-xl {
+  font-size: clamp(3.1rem, 11.2vw, 13.5rem);
+  line-height: 0.86;
+  letter-spacing: -0.055em;
+  font-weight: 500;
 }
 
-.btn-solid:hover {
-  background: #ffffff;
+@utility display-lg {
+  font-size: clamp(2.6rem, 7.4vw, 8.5rem);
+  line-height: 0.9;
+  letter-spacing: -0.045em;
+  font-weight: 500;
 }
 
-.inquiry-mail-desktop {
+@utility display-md {
+  font-size: clamp(2.1rem, 4.6vw, 5rem);
+  line-height: 0.96;
+  letter-spacing: -0.035em;
+  font-weight: 500;
+}
+
+/* Hero headline sized so its longest line always fits (--chars set inline). */
+.hero-title {
+  --fit: 0.56;
+  font-size: min(12.5rem, calc((100vw - 2 * var(--gutter)) / (var(--chars) * var(--fit))));
+}
+@media (min-width: 1024px) {
+  /* Headline takes 8 of 12 columns and leaves room for the copy below it. */
+  .hero-title {
+    font-size: min(12.5rem, calc((100vw - 2 * var(--gutter)) * 0.64 / (var(--chars) * 0.56)), max(4.5rem, calc((100svh - 26rem) / 3.44)));
+  }
+}
+
+/* Masked line used by text reveals: the inner span slides up from below. */
+.line-mask {
+  display: block;
+  overflow: clip;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+.line-mask > span {
+  display: inline-block;
+  will-change: transform;
+}
+
+/* Elements animated by GSAP start hidden only once JS is confirmed. */
+.js [data-reveal],
+.js [data-hero-fade],
+.js [data-case-fade] {
+  opacity: 0;
+}
+
+/* Underline that draws in on hover. */
+.link-draw {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  transition: background-size 0.6s var(--ease-out-expo);
+}
+.link-draw:hover,
+.link-draw:focus-visible {
+  background-size: 100% 1px;
+}
+
+/* Intro: a short curtain on the first page of a visit. CSS-only, so it
+   always clears itself even if scripts fail. */
+.intro {
   display: none;
 }
-
-.inquiry-mail-mobile {
-  display: inline-flex;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .inquiry-mail-desktop {
-    display: inline-flex;
-  }
-
-  .inquiry-mail-mobile {
-    display: none;
-  }
-}
-
-.btn-line {
-  border: 1px solid rgba(232, 230, 225, 0.2);
-  color: var(--paper);
-}
-
-.btn-line:hover {
-  border-color: var(--paper);
-  background: var(--paper);
-  color: var(--ink);
-}
-
-.btn:disabled,
-.btn-solid:disabled,
-.btn-line:disabled,
-.btn[aria-disabled="true"] {
-  opacity: 0.45;
-  cursor: not-allowed;
+.intro-play .intro {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: var(--color-ink);
+  color: var(--color-ivory);
   pointer-events: none;
+  animation: intro-out 0.85s 0.8s var(--ease-in-out-quart) forwards;
 }
-
-.field {
-  width: 100%;
-  border: 0;
-  border-bottom: 1px solid rgba(232, 230, 225, 0.16);
-  background: transparent;
-  padding: 0.85rem 0;
-  color: var(--paper);
-  font-size: 1rem;
-  line-height: 1.5;
+.intro-word {
+  display: block;
+  font-size: clamp(2.5rem, 8vw, 6.5rem);
+  font-weight: 500;
+  letter-spacing: -0.05em;
+  animation: intro-word 0.9s var(--ease-out-expo) both;
 }
-
-.field::placeholder {
-  color: rgba(232, 230, 225, 0.32);
-}
-
-.field:focus {
-  border-bottom-color: var(--paper);
-  outline: none;
-}
-
-.field[aria-invalid="true"] {
-  border-bottom-color: #e4bdb4;
-}
-
-.select-field {
-  appearance: none;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none' stroke='%239c9890' stroke-width='1.4'%3E%3Cpath d='M3 6l5 5 5-5'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 0.15rem center;
-  background-size: 1rem;
-  padding-right: 1.75rem;
-}
-
-textarea.field {
-  resize: vertical;
-  min-height: 9rem;
-}
-
-.lightbox {
-  width: min(68rem, calc(100vw - 1.5rem));
-  max-height: calc(100dvh - 1.5rem);
-  margin: auto;
-  overflow: auto;
-  border: 0;
-  padding: 0;
-  background: transparent;
-  color: var(--paper);
-}
-
-.lightbox::backdrop {
-  background: rgba(8, 9, 11, 0.88);
-}
-
-.process-line {
-  transform: scaleX(1);
-}
-
-@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
-  .media-zoom {
-    transition: transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-
-  .group:hover .media-zoom {
-    transform: scale(1.045);
-  }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .hero-rise {
-    animation: hero-rise 1.05s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .rise {
-    animation: hero-rise 0.95s cubic-bezier(0.22, 1, 0.36, 1) both;
-  }
-
-  .ambient {
-    animation: ambient-drift 22s ease-in-out infinite;
-  }
-
-  .scroll-line {
-    animation: scroll-line 2.4s ease-in-out infinite;
-  }
-}
-
-@supports (animation-timeline: view()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .rise-view {
-      animation-timeline: view();
-      animation-range: entry 0% entry 42%;
-    }
-
-    .process-line {
-      transform-origin: left center;
-      transform: scaleX(0);
-      animation: draw-line 1.15s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-      animation-timeline: view();
-      animation-range: entry 12% cover 42%;
-    }
-  }
-}
-
-@keyframes hero-rise {
+@keyframes intro-word {
   from {
     opacity: 0;
-    transform: translateY(108%);
+    transform: translateY(60%);
+    filter: blur(8px);
   }
-
+}
+@keyframes intro-out {
   to {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(-100%);
+    border-radius: 0 0 50% 50% / 0 0 14% 14%;
+    visibility: hidden;
   }
 }
 
-@keyframes ambient-drift {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-
-  50% {
-    transform: translate3d(-1.5%, 1%, 0) scale(1.04);
+/* Contact form micro-animations */
+@keyframes field-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
   }
 }
-
-@keyframes scroll-line {
-  0% {
-    transform: scaleY(0);
-    transform-origin: top;
-  }
-
-  45% {
-    transform: scaleY(1);
-    transform-origin: top;
-  }
-
-  55% {
-    transform: scaleY(1);
-    transform-origin: bottom;
-  }
-
-  100% {
-    transform: scaleY(0);
-    transform-origin: bottom;
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
   }
 }
-
-@keyframes draw-line {
+@keyframes draw-check {
   to {
-    transform: scaleX(1);
+    stroke-dashoffset: 0;
   }
+}
+
+/* Marquee */
+@keyframes marquee {
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+.marquee-track {
+  animation: marquee 48s linear infinite;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
   *,
   *::before,
   *::after {
-    animation-duration: 0.01ms !important;
+    animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
+    transition-duration: 0.001ms !important;
     scroll-behavior: auto !important;
+  }
+  .js [data-reveal],
+  .js [data-hero-fade],
+  .js [data-case-fade] {
+    opacity: 1;
+  }
+}
+
+@media (pointer: fine) {
+  .has-cursor,
+  .has-cursor a,
+  .has-cursor button {
+    cursor: none;
   }
 }

@@ -1,0 +1,226 @@
+{
+  "aeris-flights": {
+    "home": {
+      "src": "/work/aeris-flights/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/aeris-flights/home-long.webp",
+      "width": 1440,
+      "height": 3400
+    },
+    "results": {
+      "src": "/work/aeris-flights/results.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "explore": {
+      "src": "/work/aeris-flights/explore.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/aeris-flights/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-results": {
+      "src": "/work/aeris-flights/m-results.webp",
+      "width": 780,
+      "height": 1688
+    }
+  },
+  "living-interior": {
+    "home": {
+      "src": "/work/living-interior/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/living-interior/home-long.webp",
+      "width": 1440,
+      "height": 1712
+    },
+    "studio": {
+      "src": "/work/living-interior/studio.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "collections": {
+      "src": "/work/living-interior/collections.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/living-interior/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-studio": {
+      "src": "/work/living-interior/m-studio.webp",
+      "width": 780,
+      "height": 1688
+    }
+  },
+  "nexora-crm": {
+    "dashboard": {
+      "src": "/work/nexora-crm/dashboard.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "pipeline": {
+      "src": "/work/nexora-crm/pipeline.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "analytics": {
+      "src": "/work/nexora-crm/analytics.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "dashboard-long": {
+      "src": "/work/nexora-crm/dashboard-long.webp",
+      "width": 1440,
+      "height": 2093
+    },
+    "m-dashboard": {
+      "src": "/work/nexora-crm/m-dashboard.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-pipeline": {
+      "src": "/work/nexora-crm/m-pipeline.webp",
+      "width": 780,
+      "height": 1688
+    }
+  },
+  "nori-sushi": {
+    "home": {
+      "src": "/work/nori-sushi/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/nori-sushi/home-long.webp",
+      "width": 1440,
+      "height": 3400
+    },
+    "menu": {
+      "src": "/work/nori-sushi/menu.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "product": {
+      "src": "/work/nori-sushi/product.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/nori-sushi/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-menu": {
+      "src": "/work/nori-sushi/m-menu.webp",
+      "width": 780,
+      "height": 1688
+    }
+  },
+  "noir-restaurant": {
+    "menu": {
+      "src": "/work/noir-restaurant/menu.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "reservations": {
+      "src": "/work/noir-restaurant/reservations.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/noir-restaurant/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-reservations": {
+      "src": "/work/noir-restaurant/m-reservations.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "home": {
+      "src": "/work/noir-restaurant/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/noir-restaurant/home-long.webp",
+      "width": 1440,
+      "height": 3400
+    }
+  },
+  "nova-detailing": {
+    "home": {
+      "src": "/work/nova-detailing/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/nova-detailing/home-long.webp",
+      "width": 1440,
+      "height": 3400
+    },
+    "packages": {
+      "src": "/work/nova-detailing/packages.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "gallery": {
+      "src": "/work/nova-detailing/gallery.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/nova-detailing/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-booking": {
+      "src": "/work/nova-detailing/m-booking.webp",
+      "width": 780,
+      "height": 1688
+    }
+  },
+  "coffee-studio": {
+    "home": {
+      "src": "/work/coffee-studio/home.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "home-long": {
+      "src": "/work/coffee-studio/home-long.webp",
+      "width": 1440,
+      "height": 3400
+    },
+    "menu": {
+      "src": "/work/coffee-studio/menu.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "gallery": {
+      "src": "/work/coffee-studio/gallery.webp",
+      "width": 2160,
+      "height": 1350
+    },
+    "m-home": {
+      "src": "/work/coffee-studio/m-home.webp",
+      "width": 780,
+      "height": 1688
+    },
+    "m-menu": {
+      "src": "/work/coffee-studio/m-menu.webp",
+      "width": 780,
+      "height": 1688
+    }
+  }
+}

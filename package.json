@@ -1,29 +1,38 @@
 {
   "name": "david-portfolio",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
+  "description": "DAVID — Independent Creative Developer. Portfolio website.",
+  "engines": {
+    "node": ">=20.9"
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "typecheck": "tsc --noEmit"
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "shots": "node scripts/capture-screenshots.mjs",
+    "e2e": "node scripts/e2e.mjs"
   },
   "dependencies": {
-    "lucide-react": "^1.54.0",
-    "motion": "^14.0.0",
-    "next": "16.4.0",
-    "react": "19.3.0",
-    "react-dom": "19.3.0"
+    "gsap": "^3.13.0",
+    "lenis": "^1.3.27",
+    "lucide-react": "^1.60.0",
+    "next": "^16.4.2",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
   },
   "devDependencies": {
-    "@tailwindcss/turbopack": "^4",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "16.4.0",
-    "tailwindcss": "^4",
-    "typescript": "^5"
+    "@tailwindcss/postcss": "^4.3.3",
+    "@types/node": "^22.20.5",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "eslint": "^9.39.5",
+    "eslint-config-next": "^16.4.2",
+    "playwright-core": "^1.48.2",
+    "sharp": "^0.34.0",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^5.9.3"
   }
 }

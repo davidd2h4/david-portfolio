@@ -1,19 +1,14 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
+  reactStrictMode: true,
   poweredByHeader: false,
+  allowedDevOrigins: ["192.168.*.*", "10.*.*.*", "172.*.*.*", "*.local"],
   images: {
-    qualities: [75, 82, 84],
-  },
-  cacheComponents: true,
-  partialPrefetching: true,
-  turbopack: {
-    rules: {
-      "*.css": {
-        loaders: ["@tailwindcss/turbopack"],
-        as: "*.css",
-      },
-    },
+    // Every project image is a local screenshot in /public/work.
+    formats: ["image/avif", "image/webp"],
+    deviceSizes: [390, 640, 828, 1080, 1280, 1600, 1920, 2160],
+    imageSizes: [96, 160, 256, 384],
   },
 };
 
