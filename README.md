@@ -23,7 +23,8 @@ npm run build && npm start   # production build
 | `npm run lint` | ESLint |
 | `npm run build` | Production build; prerenders `/` and all seven `/work/*` pages |
 | `npm run e2e` | Browser checks against a running server (`E2E_BASE=http://localhost:3000`): status codes, console errors, broken images, links, language switch, keyboard skip link, mobile menu, reduced motion, and horizontal overflow / clipped text at 9 widths in both languages |
-| `npm run shots` | Re-captures the project screenshots from the live sites into `public/work/` and updates `src/data/shots.json` (`npm run shots -- noir-restaurant` for one project) |
+| `npm run check:media` | Fails if any screenshot is missing, unreadable, mis-sized or blank (an all-black / all-white failed capture) |
+| `npm run shots` | Re-captures the project screenshots from the live sites into `public/work/` and updates `src/data/shots.json` (`npm run shots -- noir-restaurant` for one project, `-- nova-detailing --shot=gallery` for one shot). Blank captures are retried and never overwrite a good file |
 
 `e2e` and `shots` use Playwright with a local Chromium. Set `CHROMIUM_PATH` if yours is not in the default Playwright cache (`scripts/sites.mjs`).
 

@@ -152,6 +152,7 @@ const en = {
     fullPage: "Full page — hover to scroll",
     project: "Project",
   },
+  media: { unavailable: "This screenshot couldn’t be loaded." },
   notFound: {
     title: "This page doesn’t exist.",
     text: "The link may be broken or the page may have moved.",
@@ -315,6 +316,7 @@ const uk: Dictionary = {
     fullPage: "Уся сторінка — наведіть, щоб прогорнути",
     project: "Проєкт",
   },
+  media: { unavailable: "Не вдалося завантажити цей скриншот." },
   notFound: {
     title: "Такої сторінки не існує.",
     text: "Можливо, посилання пошкоджене або сторінку переміщено.",

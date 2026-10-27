@@ -1,8 +1,8 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import type { Shot } from "@/data/projects";
+import { ShotImage } from "./ShotImage";
 
 /**
  * A fixed-ratio window onto a tall full-page screenshot. Hovering (or
@@ -36,7 +36,7 @@ export function ScrollPreview({ shot, alt, label, ratio = "16 / 10", className =
       style={{ aspectRatio: ratio }}
     >
       <div ref={img} className="will-change-transform transition-transform ease-[cubic-bezier(0.45,0,0.2,1)] motion-reduce:transition-none">
-        <Image src={shot.src} width={shot.width} height={shot.height} alt="" sizes="(min-width: 1024px) 50vw, 100vw" className="block h-auto w-full" />
+        <ShotImage shot={shot} alt="" sizes="(min-width: 1024px) 50vw, 100vw" />
       </div>
     </div>
   );

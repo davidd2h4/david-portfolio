@@ -169,6 +169,21 @@ async function stitched(page, maxHeight, dsf) {
 
 const only = process.argv[2] && !process.argv[2].startsWith("--") ? process.argv[2] : undefined;
 const longOnly = process.argv.includes("--long");
+// --shot=gallery,m-booking recaptures only those shots.
+const shotFilter = process.argv.find((a) => a.startsWith("--shot="))?.slice(7).split(",");
+
+// Sites are captured with reduced motion so scroll-reveal content is shown at
+// once. NOIR is the exception: under reduced motion its own homepage leaves
+// sections blank, so it is captured with normal motion.
+const MOTION = { "noir-restaurant": "no-preference" };
+
+// A capture whose pixels barely vary (all black / all white) is a failed
+// capture, not a screenshot. Measured as the mean RGB standard deviation.
+const MIN_DETAIL = 12;
+async function detail(buf) {
+  const { channels } = await sharp(buf).stats();
+  return channels.slice(0, 3).reduce((a, c) => a + c.stdev, 0) / 3;
+}
 const manifest = existsSync(MANIFEST) ? JSON.parse(readFileSync(MANIFEST, "utf8")) : {};
 const browser = await chromium.launch({ executablePath: CHROMIUM_PATH, args: ["--use-angle=swiftshader", "--enable-unsafe-swiftshader"] });
 
@@ -179,7 +194,7 @@ for (const site of SITES) {
   manifest[site.slug] ??= {};
 
   for (const mobile of [false, true]) {
-    const ctx = await browser.newContext({ ...(mobile ? MOBILE : DESKTOP), locale: "en-US", reducedMotion: "no-preference" });
+    const ctx = await browser.newContext({ ...(mobile ? MOBILE : DESKTOP), locale: "en-US", reducedMotion: MOTION[site.slug] ?? "reduce" });
     const page = await ctx.newPage();
     const origin = new URL(site.url).origin;
     if (LOCALE_COOKIES[site.slug]) await ctx.addCookies([{ name: LOCALE_COOKIES[site.slug], value: "en", url: origin }]);
@@ -193,7 +208,7 @@ for (const site of SITES) {
     await page.goto(origin + "/", { waitUntil: "networkidle", timeout: 60000 }).catch(() => {});
     await toEnglish(page);
 
-    for (const shot of PLAN[site.slug].filter((s) => !!s.mobile === mobile && (!longOnly || s.long))) {
+    for (const shot of PLAN[site.slug].filter((s) => !!s.mobile === mobile && (!longOnly || s.long) && (!shotFilter || shotFilter.includes(s.name)))) {
       try {
         if (SPA.has(site.slug)) {
           await page.evaluate((p) => {
@@ -216,9 +231,22 @@ for (const site of SITES) {
           }, shot.at);
           await page.waitForTimeout(900);
         }
-        const png = shot.long
-          ? await stitched(page, shot.long, (mobile ? MOBILE : DESKTOP).deviceScaleFactor)
-          : await page.screenshot({ animations: "disabled", timeout: 90000 });
+        const capture = () =>
+          shot.long
+            ? stitched(page, shot.long, (mobile ? MOBILE : DESKTOP).deviceScaleFactor)
+            : page.screenshot({ animations: "disabled", timeout: 90000 });
+        let png = await capture();
+        // Content still fading in: nudge the scroll position so reveal
+        // observers fire, wait, and try again before giving up.
+        for (let attempt = 1; attempt <= 3 && (await detail(png)) < MIN_DETAIL; attempt++) {
+          await page.mouse.wheel(0, 40);
+          await page.waitForTimeout(400);
+          await page.mouse.wheel(0, -40);
+          await page.waitForTimeout(2500 * attempt);
+          png = await capture();
+        }
+        const d = await detail(png);
+        if (d < MIN_DETAIL) throw new Error(`blank capture (detail ${d.toFixed(1)}) — previous file kept`);
         const width = mobile ? 780 : shot.long ? 1440 : 2160;
         const out = `${dir}/${shot.name}.webp`;
         const info = await sharp(png).resize({ width, withoutEnlargement: true }).webp({ quality: 80 }).toFile(out);

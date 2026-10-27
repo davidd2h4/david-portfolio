@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { Tilt } from "@/components/motion/Tilt";
+import { ShotImage } from "./ShotImage";
 import type { Shot } from "@/data/projects";
 
 /** Minimal browser chrome around a desktop screenshot. */
@@ -32,14 +32,13 @@ export function BrowserFrame({
           <span className="ml-3 hidden truncate font-mono text-[0.65rem] tracking-wide sm:block">{host}</span>
         </div>
         <div className="overflow-hidden">
-          <Image
-            src={shot.src}
-            width={shot.width}
-            height={shot.height}
+          <ShotImage
+            shot={shot}
             alt={alt}
             sizes={sizes}
             priority={priority}
-            className="block h-auto w-full transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover/tilt:scale-[1.025]"
+            liveUrl={url}
+            className="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover/tilt:scale-[1.025]"
           />
         </div>
       </figure>
@@ -53,13 +52,11 @@ export function PhoneFrame({ shot, alt, className = "", sizes = "(min-width: 102
     <Tilt max={5} className="rounded-[2.1rem]">
       <figure className={`relative rounded-[2.1rem] bg-[#0f0f0f] p-[0.45rem] shadow-[0_40px_70px_-30px_rgba(0,0,0,0.55)] ring-1 ring-white/10 ${className}`}>
         <div className="relative overflow-hidden rounded-[1.7rem]">
-          <Image
-            src={shot.src}
-            width={shot.width}
-            height={shot.height}
+          <ShotImage
+            shot={shot}
             alt={alt}
             sizes={sizes}
-            className="block h-auto w-full transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover/tilt:scale-[1.03]"
+            className="transition-transform duration-[1.4s] ease-[var(--ease-out-expo)] group-hover/tilt:scale-[1.03]"
           />
         </div>
       </figure>

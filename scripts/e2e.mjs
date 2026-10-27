@@ -266,6 +266,17 @@ for (const [width, lang] of WIDTHS.flatMap((w) => [[w, "en"], [w, "uk"]])) {
   await ctx.close();
 }
 
+// ---------- Media: a failed screenshot shows a visible message, not a blank block ----------
+{
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 } });
+  const page = await ctx.newPage();
+  await page.route(/nova-detailing%2Fgallery|nova-detailing\/gallery/, (r) => r.abort());
+  await page.goto(BASE + "/work/nova-detailing", { waitUntil: "networkidle" });
+  await scrollThrough(page);
+  ok(await page.getByText("This screenshot couldn’t be loaded.").first().isVisible().catch(() => false), "a screenshot that fails to load shows an error message");
+  await ctx.close();
+}
+
 await browser.close();
 console.log(failures ? `\n${failures} check(s) failed` : "\nAll checks passed");
 process.exit(failures ? 1 : 0);
